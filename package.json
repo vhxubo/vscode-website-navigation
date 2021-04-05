@@ -35,7 +35,7 @@
       "activitybar": [
         {
           "id": "website-navigation",
-          "title": "Website Navigation",
+          "title": "收藏夹",
           "icon": "media/dep.svg"
         }
       ]
@@ -44,7 +44,7 @@
       "website-navigation": [
         {
           "id": "websitesTree",
-          "name": "Websites"
+          "name": ""
         }
       ]
     },
