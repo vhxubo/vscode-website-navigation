@@ -15,6 +15,22 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "WebsiteNavigation",
+      "properties": {
+        "websiteNavigation.repository": {
+          "type": "string",
+          "default": "vhxubo/websites",
+          "description": "导航仓库，形如'vhxubo/websites'"
+        }
+      }
+    },
+    "viewsWelcome": [
+      {
+        "view": "websitesTree",
+        "contents": "没有设置导航仓库。[查看更多](https://github.com/vhxubo/vscode-websites-navigation)\n[设置仓库](command:websiteNavigation.setRepository)"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -36,6 +52,10 @@
       {
         "command": "websites.openUrl",
         "title": "Open Url"
+      },
+      {
+        "command": "websiteNavigation.setRepository",
+        "title": "Set Repository"
       }
     ]
   },
