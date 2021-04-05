@@ -69,7 +69,7 @@ export class WebsitesDataProvider
           if (value.indexOf("http") !== -1) {
             list.push(
               new WebsiteItem(
-                key + ": " + value,
+                "🎉" + key + ": " + value,
                 vscode.TreeItemCollapsibleState.None,
                 "",
                 {
@@ -82,7 +82,7 @@ export class WebsitesDataProvider
           } else {
             list.push(
               new WebsiteItem(
-                key + ": " + value,
+                "👉" + key + ": " + value,
                 vscode.TreeItemCollapsibleState.None
               )
             );
