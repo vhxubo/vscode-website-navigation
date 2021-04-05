@@ -112,7 +112,9 @@ export class WebsitesDataProvider
       return arrItem[0].items.map(
         (item) =>
           new WebsiteItem(
-            item.name,
+            `${item.name} \n ${item.url
+              .replace(/https?:\/\//, "")
+              .replace(/\/$/g, "")}`,
             vscode.TreeItemCollapsibleState.None,
             item.description,
             {
