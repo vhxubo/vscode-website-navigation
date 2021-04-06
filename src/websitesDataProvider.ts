@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { requestURL, allSettledPromises } from "./utils";
+import { requestURL, anyPromises } from "./utils";
 
 interface Item {
   name: string;
@@ -45,7 +45,7 @@ export class WebsitesDataProvider
       requestURL(`https://cdn.jsdelivr.net/gh/${repository}/api/urls.json`)
     );
 
-    const data = await allSettledPromises(promises);
+    const data = await anyPromises(promises);
     this.urlsData = JSON.parse(data);
   }
 
