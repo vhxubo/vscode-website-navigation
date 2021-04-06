@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as https from "https";
+import { requestURL, allSettledPromises } from "./utils";
 
 interface Item {
   name: string;
@@ -30,23 +30,6 @@ export class WebsitesDataProvider
     return element;
   }
 
-  async requestURL(url: string) {
-    return new Promise((resolve, reject) => {
-      https.get(url, (res) => {
-        let body = "";
-        res.on("data", (data) => {
-          body += data;
-        });
-        res.on("end", () => {
-          resolve(body);
-        });
-        res.on("error", (error) => {
-          reject(error);
-        });
-      });
-    });
-  }
-
   async getJson() {
     const repository = vscode.workspace
       .getConfiguration("websiteNavigation")
@@ -54,43 +37,16 @@ export class WebsitesDataProvider
 
     const promises = [];
     promises.push(
-      this.requestURL(
+      requestURL(
         `https://raw.githubusercontent.com/${repository}/master/api/urls.json`
       )
     );
     promises.push(
-      this.requestURL(`https://cdn.jsdelivr.net/gh/${repository}/api/urls.json`)
+      requestURL(`https://cdn.jsdelivr.net/gh/${repository}/api/urls.json`)
     );
-    // [Promise.allSettled() - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled)
-    const results = await Promise.allSettled(promises);
-    const successRes = results.filter((p) => p.status === "fulfilled");
 
-    switch (successRes.length) {
-      case 0:
-        vscode.window.showErrorMessage("接口访问错误！请检查您的网络");
-        break;
-      case 1:
-        this.urlsData = JSON.parse(
-          (successRes[0] as PromiseFulfilledResult<any>).value
-        );
-        break;
-      default:
-        // 根据updateTime逆序排列
-        const sortRes = successRes.sort((a, b) => {
-          return (
-            Number(
-              new Date((b as PromiseFulfilledResult<any>).value.updateTime)
-            ) -
-            Number(
-              new Date((a as PromiseFulfilledResult<any>).value.updateTime)
-            )
-          );
-        });
-        // 将最新更新的数据进行分配
-        this.urlsData = JSON.parse(
-          (sortRes[0] as PromiseFulfilledResult<any>).value
-        );
-    }
+    const data = await allSettledPromises(promises);
+    this.urlsData = JSON.parse(data);
   }
 
   async getChildren(element?: WebsiteItem): Promise<WebsiteItem[]> {
