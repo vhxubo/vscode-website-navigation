@@ -1,9 +1,11 @@
 {
   "name": "vscode-website-navigation",
   "displayName": "Website Navigation",
-  "description": "",
+  "description": "网址收藏夹（导航）",
   "version": "0.0.1",
-  "author": "vhxubo",
+  "author": "vhxubo <vhxubo@gmail.com>",
+  "publisher": "vhxubo",
+  "license": "MIT",
   "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.55.0"
@@ -60,6 +62,14 @@
       }
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vhxubo/vscode-website-navigation"
+  },
+  "bugs": {
+    "url": "https://github.com/vhxubo/vscode-website-navigation/issues"
+  },
+  "homepage": "https://github.com/vhxubo/vscode-website-navigation#readme",
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
