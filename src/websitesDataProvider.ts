@@ -88,7 +88,7 @@ export class WebsitesDataProvider
         });
         // 将最新更新的数据进行分配
         this.urlsData = JSON.parse(
-          (successRes[0] as PromiseFulfilledResult<any>).value
+          (sortRes[0] as PromiseFulfilledResult<any>).value
         );
     }
   }
